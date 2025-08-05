@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Diray</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>My Thoughts</h1>
+    <textarea id="entry" placeholder="Write your thoughts..."></textarea><br />
+    <button onclick="saveEntry()">Save Entry</button>
+    <a href="entries.html">🔍 View All Entries</a>
+  </div>
+
+  <script>
+    function saveEntry() {
+      const text = document.getElementById("entry").value.trim();
+      if (!text) {
+        alert("Please write something!");
+        return;
+      }
+
+      const date = new Date();
+      const entry = {
+        text,
+        time: date.toLocaleString()
+      };
+
+      let entries = JSON.parse(localStorage.getItem("entries")) || [];
+      entries.push(entry);
+      localStorage.setItem("entries", JSON.stringify(entries));
+
+      alert("Entry saved!");
+      document.getElementById("entry").value = "";
+    }
+  </script>
+</body>
+</html>
